@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Электрик · Электромонтаж и ремонт · Вызов мастера</title>
+  <meta name="description" content="Надёжный электрик для дома и бизнеса в Москве и Московской области: электромонтаж, ремонт, подключение техники, сборка щитов. Заявки в WhatsApp и Telegram." />
+  <meta property="og:title" content="Электрик · Электромонтаж и ремонт" />
+  <meta property="og:description" content="Москва и Московская область · Быстрый выезд, честные цены, гарантия. Оставьте заявку — отвечу в WhatsApp/Telegram." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='100%25' height='100%25' fill='%2313182B'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='64' fill='%23FACC15' font-family='system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji'%3E⚡ Электрик%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23facc15' d='M18.6 2 6 19h7l-1.6 11L26 13h-7l-.4-11z'/%3E%3C/svg%3E" />
+
+  <style>
+    :root{
+      --bg:#0b1220; /* глубокий тёмно-синий */
+      --panel:#0f172a; /* slate-900 */
+      --muted:#94a3b8; /* slate-400 */
+      --text:#e5e7eb; /* gray-200 */
+      --brand:#facc15; /* amber-400 */
+      --brand-2:#a3e635; /* lime-400 */
+      --ok:#22c55e; /* green-500 */
+      --err:#ef4444; /* red-500 */
+      --ring: 0 0 0 4px rgba(250, 204, 21, .25);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,.5);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:radial-gradient(1200px 600px at 100% -10%, rgba(250,204,21,.07), transparent 60%), var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial}
+    a{color:inherit}
+    .container{max-width:1100px;margin-inline:auto;padding:24px}
+    header{position:sticky;top:0;background:linear-gradient(to bottom, rgba(11,18,32,.9), rgba(11,18,32,.6));backdrop-filter:saturate(1.4) blur(6px);z-index:20}
+    .nav{display:flex;align-items:center;gap:16px;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+    .logo i{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#111;box-shadow:0 10px 20px rgba(250,204,21,.25)}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:#111827;color:#e5e7eb;border:1px solid #1f2937;text-decoration:none}
+    .pill:hover{transform:translateY(-1px)}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;border:1px solid #1f2937;background:linear-gradient(180deg,#111827,#0b1220);color:var(--text);text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+    .btn:hover{border-color:#374151;transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(180deg,#facc15,#eab308);color:#111;font-weight:700;border:none;box-shadow:0 10px 24px rgba(250,204,21,.35)}
+    .grid{display:grid;gap:18px}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(148,163,184,.15);border-radius:var(--radius);box-shadow:var(--shadow-lg)}
+    .card > *{padding:22px}
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+    .kpi .chip{background:#0b1220;border:1px dashed rgba(148,163,184,.3);border-radius:14px;padding:10px 12px;font-size:14px}
+    .section{padding:26px 0}
+    h1{font-size:42px;line-height:1.2;margin:0 0 12px}
+    h2{font-size:28px;margin:0 0 14px}
+    h3{font-size:18px;margin:0 0 8px}
+    p{margin:0 0 12px;color:var(--muted)}
+    ul{margin:0;padding-left:18px}
+    .services{grid-template-columns:repeat(2,1fr)}
+    .services .item{display:flex;gap:12px;padding:16px;border:1px solid rgba(148,163,184,.15);border-radius:14px;background:rgba(2,6,23,.35)}
+    .services .icon{font-size:20px}
+    .prices{grid-template-columns:repeat(3,1fr)}
+    .price{padding:18px;border:1px solid rgba(148,163,184,.15);border-radius:14px;background:rgba(2,6,23,.35)}
+    .form{display:grid;gap:12px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{font-size:14px;color:var(--muted)}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #233047;background:#0a1222;color:var(--text);outline:none}
+    input:focus,select:focus,textarea:focus{box-shadow:var(--ring)}
+    textarea{min-height:120px}
+    .muted{color:var(--muted);font-size:14px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid rgba(148,163,184,.2);background:rgba(2,6,23,.35);border-radius:999px;font-size:13px}
+    .floating-actions{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:50}
+    .floating-actions a{box-shadow:0 10px 20px rgba(0,0,0,.35)}
+    footer{padding:26px 0;color:var(--muted)}
+
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+      .kpi{grid-template-columns:1fr}
+      .services{grid-template-columns:1fr}
+      .prices{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+    }
+      /* Прайс: таблица и инструменты */
+    .price-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:12px 0}
+    .price-tools input{max-width:380px}
+    .price-table{width:100%;border-collapse:collapse;background:rgba(2,6,23,.35);border:1px solid rgba(148,163,184,.15);border-radius:14px;overflow:hidden}
+    .price-table thead th{font-weight:700;font-size:14px;text-align:left;padding:12px 14px;background:#0b1220}
+    .price-table tbody td{padding:12px 14px;border-top:1px solid rgba(148,163,184,.12)}
+    .price-table tbody tr:hover{background:rgba(148,163,184,.06)}
+    .price-note{margin-top:8px;font-size:14px;color:var(--muted)}
+      /* Карточки популярных работ */
+    .popular{grid-template-columns:repeat(3,1fr)}
+    .popular .card-item{padding:16px;border:1px solid rgba(148,163,184,.15);border-radius:14px;background:rgba(2,6,23,.35);display:flex;flex-direction:column;gap:8px}
+    .popular .price-tag{font-weight:800;color:var(--text)}
+    .popular .hint{font-size:13px;color:var(--muted)}
+    .dl{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .dl a{padding:10px 14px;border-radius:10px;border:1px solid #1f2937;background:#0b1220;text-decoration:none}
+    .dl a:hover{border-color:#374151}
+    @media (max-width:920px){.popular{grid-template-columns:1fr}}
+  </style>
+
+  <!-- Structured data (замените url при публикации) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Electrician",
+    "name": "Электрик — @help_electrik",
+    "url": "https://example.com",
+    "telephone": "+7 967 110-14-11",
+    "areaServed": "Москва и Московская область",
+    "sameAs": [
+      "https://t.me/help_electrik",
+      "https://wa.me/79671101411"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "name": "Прайс на электромонтажные работы",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {"@type": "Service", "name": "Замена розетки/выключателя"},
+        "priceSpecification": {"@type": "UnitPriceSpecification", "priceCurrency": "RUB", "price": "500", "unitText": "шт"}
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {"@type": "Service", "name": "Подключение люстры"},
+        "priceSpecification": {"@type": "UnitPriceSpecification", "priceCurrency": "RUB", "price": "1500", "unitText": "шт"}
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {"@type": "Service", "name": "Установка автомата в щит"},
+        "priceSpecification": {"@type": "UnitPriceSpecification", "priceCurrency": "RUB", "price": "700", "unitText": "шт"}
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {"@type": "Service", "name": "Сборка щита (за модуль)"},
+        "priceSpecification": {"@type": "UnitPriceSpecification", "priceCurrency": "RUB", "price": "400", "unitText": "модуль"}
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {"@type": "Service", "name": "Прокладка кабеля (скрытая)"},
+        "priceSpecification": {"@type": "UnitPriceSpecification", "priceCurrency": "RUB", "price": "250", "unitText": "м"}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo"><img src="photo.jpg" alt="Логотип" style="width:48px;height:48px;border-radius:8px;object-fit:cover;"/><span>Электрик</span></div>
+      <nav style="display:flex; gap:10px; align-items:center">
+        <a class="pill" href="#services">Услуги</a>
+        <a class="pill" href="#popular">Популярное</a>
+        <a class="pill" href="#prices">Прайс</a>
+        <a class="pill" href="#contact">Контакты</a>
+        <a class="btn" href="https://t.me/help_electrik" target="_blank" rel="noopener">Написать в Telegram</a>
+        <a class="btn primary" href="#order">Заказать работу</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="section hero">
+      <div>
+        <h1>Надёжный электрик для дома и бизнеса</h1>
+        <p>Монтаж и ремонт электрики: от розеток и света до щитов и автоматов. Работаю аккуратно и по правилам ПУЭ. Заявки принимаю в Telegram и WhatsApp.</p>
+        <div class="badges">
+          <span class="badge">🧰 Диагностика и ремонт</span>
+          <span class="badge">💡 Свет, розетки, выключатели</span>
+          <span class="badge">🛡️ УЗО/автоматы, щиты</span>
+          <span class="badge">📍 Выезд по Москве и МО</span>
+        </div>
+        <div style="display:flex; gap:12px; margin-top:18px">
+          <a class="btn primary" href="#order">Оставить заявку</a>
+          <a class="btn" href="https://wa.me/79671101411" target="_blank" rel="noopener">Заказать в WhatsApp</a>
+          <a class="btn" href="tel:+79671101411">Позвонить</a>
+        </div>
+        <div class="kpi">
+          <div class="chip">✅ Гарантия на работы</div>
+          <div class="chip">🧹 Чисто и аккуратно</div>
+          <div class="chip">💬 Быстрый ответ</div>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <h3>Быстрая заявка</h3>
+          <p class="muted">Заполните 3 поля — и я свяжусь с вами в мессенджере.</p>
+          <form id="quick-form" class="form" autocomplete="on">
+            <div class="row">
+              <div>
+                <label for="qname">Имя</label>
+                <input id="qname" name="name" placeholder="Как к вам обращаться" required />
+              </div>
+              <div>
+                <label for="qtel">Телефон</label>
+                <input id="qtel" name="tel" type="tel" placeholder="+7 (___) ___-__-__" />
+              </div>
+            </div>
+            <div>
+              <label for="qservice">Что нужно сделать</label>
+              <select id="qservice" name="service">
+                <option>Диагностика/ремонт</option>
+                <option>Монтаж розеток/выключателей</option>
+                <option>Освещение (люстры/споты/трек)</option>
+                <option>Сборка/замена электрощита</option>
+                <option>Установка УЗО/автоматов</option>
+                <option>Прокладка кабеля</option>
+                <option>Тёплый пол / силовые линии</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <button class="btn primary" type="submit">Отправить в WhatsApp</button>
+            <p id="quick-status" class="muted" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="popular" class="section">
+      <h2>Самые популярные работы</h2>
+      <p class="muted">Ориентировочные цены по Москве (без материалов). <strong>Минимальный заказ — 5 000 ₽.</strong></p>
+      <div class="grid popular">
+        <div class="card-item"><h3>Замена розетки/выключателя</h3><div class="price-tag">от 500 ₽ / шт</div><div class="hint">Готовая проводка, без штробы</div><a class="btn" href="#order">Заказать</a></div>
+        <div class="card-item"><h3>Установка новой розетки</h3><div class="price-tag">от 900 ₽ / точка</div><div class="hint">С подрозетником</div><a class="btn" href="#order">Заказать</a></div>
+        <div class="card-item"><h3>Подключение люстры</h3><div class="price-tag">от 1 500 ₽ / шт</div><div class="hint">До 8 рожков</div><a class="btn" href="#order">Заказать</a></div>
+        <div class="card-item"><h3>Установка автомата в щит</h3><div class="price-tag">от 700 ₽ / шт</div><div class="hint">Маркировка линии</div><a class="btn" href="#order">Заказать</a></div>
+        <div class="card-item"><h3>Установка УЗО/дифавтомата</h3><div class="price-tag">от 1 200 ₽ / шт</div><div class="hint">Подбор по нагрузке</div><a class="btn" href="#order">Заказать</a></div>
+        <div class="card-item"><h3>Сборка электрощита</h3><div class="price-tag">от 400 ₽ / модуль</div><div class="hint">Маркировка, укладка</div><a class="btn" href="#order">Заказать</a></div>
+      </div>
+      <div class="dl">
+        <a href="price.xlsx" download>Скачать прайс (XLSX)</a>
+        <a href="price.csv" download>Скачать прайс (CSV)</a>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <h2>Услуги</h2>
+      <div class="grid services">
+        <div class="item"><div class="icon">🧰</div><div><h3>Диагностика и ремонт</h3><p>Поиск неисправностей, устранение коротких замыканий, восстановление питания.</p></div></div>
+        <div class="item"><div class="icon">🔌</div><div><h3>Розетки и выключатели</h3><p>Монтаж/замена, перенос, расширение точек, детская защита.</p></div></div>
+        <div class="item"><div class="icon">💡</div><div><h3>Освещение</h3><p>Люстры, споты, трековые системы, датчики движения, диммирование.</p></div></div>
+        <div class="item"><div class="icon">🛡️</div><div><h3>Электрощит и автоматы</h3><p>Сборка, модернизация, балансировка линий, УЗО/дифавтоматы.</p></div></div>
+        <div class="item"><div class="icon">🧱</div><div><h3>Кабельные линии</h3><p>Прокладка кабеля, штробление, скрытая и открытая проводка.</p></div></div>
+        <div class="item"><div class="icon">📶</div><div><h3>Умный дом</h3><p>Смарт‑реле, таймеры, управление освещением со смартфона.</p></div></div>
+      </div>
+    </section>
+
+    <!-- PRICES -->
+    <section id="prices" class="section">
+      <h2>Прайс на услуги</h2>
+      <p class="muted">Цены базовые, указаны «от». Точная смета после фото/описания работ. Материалы — отдельно. <strong>Минимальный заказ — 5 000 ₽.</strong></p>
+      <div class="dl">
+        <a href="price.xlsx" download>Скачать прайс (XLSX)</a>
+        <a href="price.csv" download>Скачать прайс (CSV)</a>
+      </div>
+      <h2>Прайс на услуги</h2>
+      <p class="muted">Цены базовые, указаны «от». Точная смета после фото/описания работ. Материалы — отдельно.</p>
+      <div class="price-tools">
+        <input id="price-search" class="input" placeholder="Поиск: розетка, люстра, щит..." />
+        <span class="badge">🧾 Минимальный заказ — 5 000 ₽</span>
+        <span class="badge">📍 По Москве — выезд включён</span>
+      </div>
+      <div class="card">
+        <div style="padding:0">
+          <table id="price-table" class="price-table">
+            <thead>
+              <tr>
+                <th>Услуга</th>
+                <th>Ед.</th>
+                <th>Цена, от</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Диагностика и мелкий ремонт</td>
+                <td>выезд</td>
+                <td>1 500 ₽</td>
+                <td>Зачитывается в стоимость работ</td>
+              </tr>
+              <tr>
+                <td>Замена розетки / выключателя</td>
+                <td>шт</td>
+                <td>500 ₽</td>
+                <td>Без штробления, с готовой проводкой</td>
+              </tr>
+              <tr>
+                <td>Установка новой розетки с подрозетником</td>
+                <td>точка</td>
+                <td>900 ₽</td>
+                <td>Сверление, посадка подрозетника</td>
+              </tr>
+              <tr>
+                <td>Перенос розетки (до 1 м)</td>
+                <td>точка</td>
+                <td>1 500 ₽</td>
+                <td>Дальше — по согласованию</td>
+              </tr>
+              <tr>
+                <td>Установка светильника / бра</td>
+                <td>шт</td>
+                <td>900 ₽</td>
+                <td>Простые модели, без сборки</td>
+              </tr>
+              <tr>
+                <td>Подключение люстры (до 8 рожков)</td>
+                <td>шт</td>
+                <td>1 500 ₽</td>
+                <td>Сборка/монтаж на готовое место</td>
+              </tr>
+              <tr>
+                <td>Монтаж трекового светильника</td>
+                <td>шт</td>
+                <td>500 ₽</td>
+                <td>На готовый трек</td>
+              </tr>
+              <tr>
+                <td>Установка автомата в щит</td>
+                <td>шт</td>
+                <td>700 ₽</td>
+                <td>С маркировкой линии</td>
+              </tr>
+              <tr>
+                <td>Установка УЗО / дифавтомата</td>
+                <td>шт</td>
+                <td>1 200 ₽</td>
+                <td>Подбор по нагрузке</td>
+              </tr>
+              <tr>
+                <td>Сборка электрощита (по модулям)</td>
+                <td>модуль</td>
+                <td>400 ₽</td>
+                <td>DIN‑рейка, укладка, маркировка</td>
+              </tr>
+              <tr>
+                <td>Сборка электрощита «под ключ»</td>
+                <td>щит</td>
+                <td>7 000 ₽</td>
+                <td>От 12 модулей, без материалов</td>
+              </tr>
+              <tr>
+                <td>Прокладка кабеля в гофре (скрытая)</td>
+                <td>м</td>
+                <td>250 ₽</td>
+                <td>Без штробления</td>
+              </tr>
+              <tr>
+                <td>Штробление под кабель</td>
+                <td>м</td>
+                <td>300 ₽</td>
+                <td>Глубина/материал стены — по месту</td>
+              </tr>
+              <tr>
+                <td>Подключение тёплого пола (1 контур)</td>
+                <td>контур</td>
+                <td>2 500 ₽</td>
+                <td>Терморегулятор отдельно</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="price-note">Не нашли позицию? Напишите в Telegram — пришлю расчёт. Связь: @help_electrik · WhatsApp: +7 967 110‑14‑11</p>
+
+      <script>
+        // Поиск по прайсу
+        document.addEventListener('DOMContentLoaded', function(){
+          const input = document.getElementById('price-search');
+          const rows = document.querySelectorAll('#price-table tbody tr');
+          if(!input) return;
+          input.addEventListener('input', function(){
+            const q = this.value.trim().toLowerCase();
+            rows.forEach(tr => {
+              tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+            });
+          });
+        });
+      </script>
+    </section>
+
+    <!-- ORDER FORM -->
+    <section id="order" class="section card">
+      <div>
+        <h2>Оставить заявку</h2>
+        <p class="muted">Заполните форму — заявка уйдёт в мой WhatsApp. Можно также написать в Telegram: <a href="https://t.me/help_electrik" target="_blank" rel="noopener">@help_electrik</a>.</p>
+        <form id="order-form" class="form" autocomplete="on">
+          <div class="row">
+            <div>
+              <label for="name">Имя *</label>
+              <input id="name" name="name" placeholder="Ваше имя" required />
+            </div>
+            <div>
+              <label for="phone">Телефон *</label>
+              <input id="phone" name="phone" type="tel" placeholder="+7 967 110-14-11" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="service">Услуга *</label>
+              <select id="service" name="service" required>
+                <option value="">Выберите</option>
+                <option>Диагностика/ремонт</option>
+                <option>Розетки/выключатели</option>
+                <option>Освещение</option>
+                <option>Электрощит/автоматы</option>
+                <option>Прокладка кабеля</option>
+                <option>Тёплый пол</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div>
+              <label for="when">Когда удобно</label>
+              <input id="when" name="when" type="text" placeholder="Сегодня/завтра, утро/вечер" />
+            </div>
+          </div>
+          <div>
+            <label for="message">Опишите задачу</label>
+            <textarea id="message" name="message" placeholder="Коротко: что произошло или что нужно смонтировать"></textarea>
+          </div>
+          <button class="btn primary" type="submit">Отправить в WhatsApp</button>
+          <p class="muted">Отправляя заявку, вы соглашаетесь с <a href="#privacy">политикой конфиденциальности</a>.</p>
+          <p id="order-status" class="muted" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ABOUT/WHY -->
+    <section class="section">
+      <h2>Почему меня выбирают</h2>
+      <div class="grid services">
+        <div class="item"><div class="icon">🎯</div><div><h3>По делу и без лишнего</h3><p>Объясняю на понятном языке, предлагаю решения под бюджет.</p></div></div>
+        <div class="item"><div class="icon">🧽</div><div><h3>Чистота на объекте</h3><p>Минимум пыли и мусора, закрываю поверхности, убираю за собой.</p></div></div>
+        <div class="item"><div class="icon">📸</div><div><h3>Фото/видео отчёт</h3><p>Фиксирую скрытые работы и маркировку линий, чтобы вам было спокойнее.</p></div></div>
+        <div class="item"><div class="icon">🔒</div><div><h3>Гарантия</h3><p>Даётся гарантия на выполненные работы.</p></div></div>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="privacy" class="section card">
+      <div>
+        <h2>Политика конфиденциальности (кратко)</h2>
+        <p>Контактные данные используются только для связи по заявке и не передаются третьим лицам. При отправке формы информация уходит в WhatsApp на личный номер мастера.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        <a class="pill" href="price.xlsx" download>⬇️ Прайс (XLSX)</a>
+        <a class="pill" href="price.csv" download>⬇️ Прайс (CSV)</a>
+      </p>
+      <p>Связь: <a href="https://t.me/help_electrik" target="_blank" rel="noopener">@help_electrik</a> · WhatsApp: <a href="https://wa.me/79671101411" target="_blank" rel="noopener">+7 967 110‑14‑11</a></p>
+      <p class="muted">© <span id="year"></span> Электрик. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- Floating quick actions -->
+  <div class="floating-actions">
+    <a class="btn primary" href="#order">Оставить заявку</a>
+    <a class="btn" href="tel:+79671101411">Позвонить</a>
+  </div>
+
+  <script>
+    // Год в подвале
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Хелпер: отправка формы в WhatsApp (без сервера)
+    function sendToWhatsApp(payload){
+      const phone = '79671101411'; // ваш номер без плюса
+      const text = encodeURIComponent(payload);
+      const url = `https://wa.me/${phone}?text=${text}`;
+      window.open(url, '_blank');
+    }
+
+    // Формирование текста заявки
+    function buildMessage(data){
+      return [
+        'Заявка с сайта',
+        `Имя: ${data.name || '-'} `,
+        `Телефон: ${data.phone || '-'} `,
+        `Услуга: ${data.service || '-'} `,
+        data.when ? `Когда: ${data.when}` : null,
+        data.message ? `Комментарий: ${data.message}` : null
+      ].filter(Boolean).join('\n');
+    }
+
+    function handleForm(formId, statusId){
+      const form = document.getElementById(formId);
+      const status = document.getElementById(statusId);
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const fd = new FormData(form);
+        const data = Object.fromEntries(fd.entries());
+        const payload = buildMessage(data);
+        status.textContent = 'Открываю WhatsApp...';
+        try{
+          sendToWhatsApp(payload);
+          status.textContent = 'Если WhatsApp не открылся автоматически, нажмите кнопку «Заказать в WhatsApp» или напишите в Telegram.';
+        }catch(err){
+          status.textContent = 'Не удалось открыть WhatsApp. Напишите в Telegram: @help_electrik';
+        }
+      });
+    }
+
+    handleForm('order-form','order-status');
+    handleForm('quick-form','quick-status');
+  </script>
+</body>
+</html>
