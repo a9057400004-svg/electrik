@@ -189,7 +189,7 @@ export default function HomePage() {
           <div className="container grid-2">
             <div className="photo-card">
               <Image
-                src="/alexander-site-photo.jpg"
+                src="/photo2.jpg"
                 alt="Фото Александра"
                 width={900}
                 height={1200}
